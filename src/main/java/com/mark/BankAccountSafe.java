@@ -32,16 +32,9 @@ public class BankAccountSafe {
         ExecutorService service = Executors.newFixedThreadPool(100);
         for (int i = 0; i < 1000; i++) {
             service.submit(() -> {
-                try {
-                    Thread.sleep(10);
-                    bankAccount.deposit(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    service.shutdown();
-                }
+                bankAccount.deposit(10);
             });
-
         }
+        service.shutdown();
     }
 }
